@@ -1,0 +1,11 @@
+Database:
+  DbType: mysql
+  DbName: go-chain
+  Host: 127.0.0.1:3306
+  Username: root
+  Pwd: #
+  Charset: utf8
+  ParseTime: True
+
+BlockChain:
+  RpcUrl: https://goerli.infura.io/v3/
