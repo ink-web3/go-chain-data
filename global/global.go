@@ -16,6 +16,11 @@ var (
 func init() {
 	setupConfig()
 	setupDBEngine()
+
+	err := config.MigrateDb()
+	if err != nil {
+		log.Panic("config.MigrateDb error : ", err)
+	}
 }
 
 func setupConfig() {

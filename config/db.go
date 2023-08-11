@@ -3,6 +3,8 @@ package config
 import (
 	"fmt"
 	"go-chain-data/config/setting"
+	"go-chain-data/global"
+	models "go-chain-data/internal/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -15,4 +17,12 @@ func NewDBEngine(dbConfig *setting.DbConfig) (*gorm.DB, error) {
 		return nil, err
 	}
 	return db, nil
+}
+
+// MigrateDb 初始化数据库表
+func MigrateDb() error {
+	if err := global.DBEngine.AutoMigrate(&models.Blocks{}); err != nil {
+		return err
+	}
+	return nil
 }
