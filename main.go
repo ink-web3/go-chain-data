@@ -1,22 +1,23 @@
 package main
 
 import (
-	"go-chain-data/global"
-	models "go-chain-data/internal/model"
+	"go-chain-data/config"
+	"go-chain-data/pkg/blockchain"
 	"log"
 )
 
-func main() {
-	log.Println(global.BlockChainConfig.RpcUrl)
+func init() {
+	config.SetupConfig()
+	config.SetupDBEngine()
 
-	block := models.Blocks{
-		BlockHeight:       1,
-		BlockHash:         "hash",
-		ParentHash:        "parentHash",
-		LatestBlockHeight: 2,
-	}
-	err := block.Insert()
+	err := config.MigrateDb()
 	if err != nil {
-		log.Panic("block.Insert error : ", err)
+		log.Panic("config.MigrateDb error : ", err)
 	}
+	config.SetupEthClient()
+}
+
+func main() {
+	blockchain.InitBlock()
+	blockchain.SyncTask()
 }

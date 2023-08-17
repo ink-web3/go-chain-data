@@ -40,3 +40,9 @@ func (b *Blocks) GetLatest() (*Blocks, error) {
 	}
 	return block, nil
 }
+
+func (b *Blocks) Counts() int64 {
+	var count int64
+	global.DBEngine.Model(*b).Count(&count)
+	return count
+}

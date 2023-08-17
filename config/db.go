@@ -21,7 +21,7 @@ func NewDBEngine(dbConfig *setting.DbConfig) (*gorm.DB, error) {
 
 // MigrateDb 初始化数据库表
 func MigrateDb() error {
-	if err := global.DBEngine.AutoMigrate(&models.Blocks{}); err != nil {
+	if err := global.DBEngine.AutoMigrate(&models.Blocks{}, &models.Transaction{}, &models.Events{}, &models.Topic{}); err != nil {
 		return err
 	}
 	return nil
